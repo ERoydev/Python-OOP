@@ -1,27 +1,18 @@
+def cache(func):
+    def wrapper(n):
+        if not wrapper.log.get(n):
+            wrapper.log[n] = func(n)
 
-def cache(func_ref):
-    log = {}
+        return wrapper.log.get(n)
 
-    def wrapper(number):
-        if number in log:
-            return log[number]
+    wrapper.log = {}
 
-        func_res = func_ref(number)
-        log[number] = func_res
-        return func_res
-
-    wrapper.log = log
     return wrapper
-
 
 @cache
 def fibonacci(n):
     if n < 2:
         return n
-
     else:
-        return fibonacci(n-1) + fibonacci(n-2)
+        return fibonacci(n - 1) + fibonacci(n - 2)
 
-
-fibonacci(3)
-print(fibonacci.log)
